@@ -19,6 +19,18 @@ Para clonar o projeto, rode o seguinte comando:
 git clone https://github.com/alexalannunes/meu-humor
 ```
 
+### `env`
+
+Crie um arquivo `.env.local` baseado no `.env` e adicione a url `http://localhost:3333` ou copie o codigo abaixo
+
+```bash
+VITE_API_URL="http://localhost:3333"
+```
+
+### Backend
+
+O backend do projeto está presente nesse repositório: [meu-humor](https://github.com/erikpablo/meu-humor). Siga as instruções para instalação
+
 ### Instalar dependências
 
 Voce pode usar um desses `npm`, `yarn`, `pnpm`, `bun`, exemplo usando `npm`:
