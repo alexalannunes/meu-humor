@@ -27,6 +27,18 @@ interface AuthFormProps<T extends FieldValues> {
   questionLabel: string;
 }
 
+const labelMap: Record<string, string> = {
+  name: "Nome",
+  email: "E-mail",
+  password: "Senha",
+};
+
+const typeMap: Record<string, string> = {
+  name: "text",
+  email: "email",
+  password: "password",
+};
+
 export function AuthForm<T extends FieldValues>({
   defaultValues,
   isLoading,
@@ -78,8 +90,8 @@ export function AuthForm<T extends FieldValues>({
                   autoComplete="off"
                   errorMessage={error?.message}
                   isInvalid={invalid}
-                  label="E-email"
-                  type="email"
+                  label={labelMap[key] || key}
+                  type={typeMap[key] || "text"}
                   {...field}
                 />
               )}
