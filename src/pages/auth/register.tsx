@@ -5,26 +5,47 @@ import { Form } from "@heroui/form";
 import { Image } from "@heroui/image";
 import { Input } from "@heroui/input";
 import { Link } from "@heroui/link";
-import { FormEvent, useState } from "react";
+import z from "zod";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const registerSchema = z.object({
+  email: z.email("E-email inválido").nonempty("Por favor, insira um e-mail"),
+  password: z
+    .string()
+    .nonempty("Insira uma senha")
+    .min(8, "A senha deve ter 8 caracteres ou mais.")
+    .max(32, "A senha deve ter no máximo 32 carácteres")
+    .regex(/[A-Z]/, "A senha deve incluir pelo menos 1 letra maiúscula.")
+    .regex(/[a-z]/, "A senha deve incluir pelo menos 1 letra minúscula.")
+    .regex(/\d/, "A senha deve incluir pelo menos 1 número.")
+    .regex(/[^a-zA-Z0-9]/, "A senha deve incluir pelo menos 1 símbolo."),
+});
+
+type RegisterForm = z.infer<typeof registerSchema>;
 
 export function PageRegister() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const form = useForm<RegisterForm>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: zodResolver(registerSchema),
+  });
 
-  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    // const data = Object.fromEntries(new FormData(event.currentTarget)) as {
-    //   email: string;
-    //   password: string;
-    // };
+  const handleFormSubmit = (data: RegisterForm) => {
+    console.log(data);
   };
 
   return (
     <div className="relative flex flex-col h-screen">
       <main className="container mx-auto max-w-7xl px-6 flex-grow pt-16">
         <Card className="max-w-[400px] mx-auto">
-          <Form className="w-full" onSubmit={handleFormSubmit}>
+          <Form
+            className="w-full"
+            validationBehavior="aria"
+            onSubmit={form.handleSubmit(handleFormSubmit)}
+          >
             <CardHeader className="flex gap-3">
               <Image
                 alt="heroui logo"
@@ -43,52 +64,35 @@ export function PageRegister() {
             </CardHeader>
             <Divider />
             <CardBody className="flex flex-col gap-4">
-              <Input
-                isRequired
-                autoComplete="off"
-                errorMessage={({ validationDetails }) => {
-                  if (validationDetails.valueMissing) {
-                    return "Por favor, insira um e-mail";
-                  }
-                  if (validationDetails.typeMismatch) {
-                    return "Por favor, insira um email válido";
-                  }
-                }}
-                label="E-email"
-                name={"email"}
-                type="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
+              <Controller
+                control={form.control}
+                name="email"
+                render={({ field, fieldState: { invalid, error } }) => (
+                  <Input
+                    isRequired
+                    autoComplete="off"
+                    errorMessage={error?.message}
+                    isInvalid={invalid}
+                    label="E-email"
+                    type="email"
+                    {...field}
+                  />
+                )}
               />
-              <Input
-                isRequired
-                autoComplete="new-password"
-                label="Senha"
-                name={"password"}
-                type="password"
-                validate={(value) => {
-                  if (value.length < 4 && value.length > 0) {
-                    return "A senha deve ter 4 caracteres ou mais.";
-                  }
-
-                  if (
-                    (value.match(/[A-Z]/g) || []).length < 1 &&
-                    value.length > 0
-                  ) {
-                    return "A senha deve incluir pelo menos 1 letra maiúscula.";
-                  }
-
-                  if (
-                    (value.match(/[^a-z]/gi) || []).length < 1 &&
-                    value.length > 0
-                  ) {
-                    return "A senha deve incluir pelo menos 1 símbolo.";
-                  }
-
-                  return null;
-                }}
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
+              <Controller
+                control={form.control}
+                name="password"
+                render={({ field, fieldState: { invalid, error } }) => (
+                  <Input
+                    isRequired
+                    autoComplete="new-password"
+                    errorMessage={error?.message}
+                    isInvalid={invalid}
+                    label="Senha"
+                    type="password"
+                    {...field}
+                  />
+                )}
               />
             </CardBody>
             <Divider />
