@@ -52,11 +52,10 @@ export function AuthForm<T extends FieldValues>({
       >
         <CardHeader className="flex gap-3">
           <Image
-            alt="heroui logo"
+            alt="meu humor logo"
             height={40}
             radius="sm"
-            // change this
-            src="https://s3.us-east-1.amazonaws.com/cdn.designcrowd.com/blog/75-generic-logos-to-impress-your-market/square-link-monoline-by-azus-brandcrowd.png"
+            src="/logo.png"
             width={40}
           />
           <div className="flex flex-col">
