@@ -19,7 +19,7 @@ Para clonar o projeto, rode o seguinte comando:
 git clone https://github.com/alexalannunes/meu-humor
 ```
 
-### `env`
+### `.env`
 
 Crie um arquivo `.env.local` baseado no `.env` e adicione a url `http://localhost:3333` ou copie o codigo abaixo
 
