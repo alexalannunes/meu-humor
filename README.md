@@ -1,8 +1,6 @@
-# Vite & HeroUI Template
+# meu humor
 
-This is a template for creating applications using Vite and HeroUI (v2).
-
-[Try it on CodeSandbox](https://githubbox.com/heroui-inc/vite-template)
+Monitore seu humor durante o dia
 
 ## Technologies Used
 
@@ -13,38 +11,38 @@ This is a template for creating applications using Vite and HeroUI (v2).
 - [TypeScript](https://www.typescriptlang.org)
 - [Framer Motion](https://www.framer.com/motion)
 
-## How to Use
+## Como usar
 
-To clone the project, run the following command:
+Para clonar o projeto, rode o seguinte comando:
 
 ```bash
-git clone https://github.com/heroui-inc/vite-template.git
+git clone https://github.com/alexalannunes/meu-humor
 ```
 
-### Install dependencies
+### Instalar dependências
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+Voce pode usar um desses `npm`, `yarn`, `pnpm`, `bun`, exemplo usando `npm`:
 
 ```bash
 npm install
 ```
 
-### Run the development server
+### Rode o servidor de desenvolvimento
 
 ```bash
 npm run dev
 ```
 
-### Setup pnpm (optional)
+### Configurar pnpm (opcional)
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+Se você estiver usando `pnpm`, precisará adicionar o seguinte código ao seu arquivo `.npmrc`:
 
 ```bash
 public-hoist-pattern[]=*@heroui/*
 ```
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+Após modificar o arquivo `.npmrc`, você precisa executar `pnpm install` novamente para garantir que as dependências sejam instaladas corretamente.
 
 ## License
 
-Licensed under the [MIT license](https://github.com/heroui-inc/vite-template/blob/main/LICENSE).
+Licenciado sob a [licença MIT](https://github.com/heroui-inc/vite-template/blob/main/LICENSE).
