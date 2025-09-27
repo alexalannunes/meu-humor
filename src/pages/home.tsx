@@ -7,6 +7,8 @@ import { siteConfig } from "@/config/site";
 import DefaultLayout from "@/layouts/default";
 import { useAuthStore } from "@/stores";
 
+//
+
 export function PageHome() {
   const logout = useAuthStore((state) => state.logout);
 
