@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 import { AuthForm } from "./auth-form";
+
+import { useAuthStore } from "@/stores";
 
 const signupSchema = z.object({
   name: z.string().nonempty("Por favor, insira um nome"),
@@ -19,8 +22,19 @@ const signupSchema = z.object({
 type SignUpForm = z.infer<typeof signupSchema>;
 
 export function PageSignUp() {
+  const login = useAuthStore((state) => state.login);
+  const navigate = useNavigate();
+
   const handleFormSubmit = (_: SignUpForm) => {
     // console.log(data);
+
+    // await
+    login({
+      id: "1",
+      ..._,
+    });
+
+    navigate("/", { replace: true });
   };
 
   return (

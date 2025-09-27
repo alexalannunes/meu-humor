@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 
-import { PageIndex } from "./pages";
-import { PageSignIn } from "./pages/auth/signin";
-import { PageSignUp } from "./pages/auth/signup";
+import { PageHome, PageSignIn, PageSignUp, ProtectedRoute } from "./pages";
 
 function App() {
   return (
     <Routes>
-      <Route element={<PageIndex />} path="/" />
+      <Route element={<ProtectedRoute />}>
+        <Route element={<PageHome />} path="/" />
+      </Route>
       <Route element={<PageSignUp />} path="/signup" />
       <Route element={<PageSignIn />} path="/signin" />
     </Routes>

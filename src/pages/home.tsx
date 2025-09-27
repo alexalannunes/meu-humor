@@ -1,11 +1,17 @@
 import { Link } from "@heroui/link";
 import { button as buttonStyles } from "@heroui/theme";
+import { Button } from "@heroui/button";
 
 import { title } from "@/components/primitives";
 import { siteConfig } from "@/config/site";
 import DefaultLayout from "@/layouts/default";
+import { useAuthStore } from "@/stores";
 
-export function PageIndex() {
+export function PageHome() {
+  const logout = useAuthStore((state) => state.logout);
+
+  const user = useAuthStore((state) => state.user);
+
   return (
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
@@ -26,6 +32,10 @@ export function PageIndex() {
           >
             + humor
           </Link>
+
+          <h2>{user?.name}</h2>
+
+          <Button onPress={logout}>logout</Button>
         </div>
       </section>
     </DefaultLayout>
