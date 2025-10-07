@@ -10,6 +10,13 @@ function App() {
       </Route>
       <Route element={<PageSignUp />} path="/signup" />
       <Route element={<PageSignIn />} path="/signin" />
+
+      {/* insert mood */}
+      <Route element={<></>} path="/new-mood" />
+      {/* mood reports */}
+      <Route element={<></>} path="/moods" />
+      {/* profile */}
+      <Route element={<></>} path="/me" />
     </Routes>
   );
 }
