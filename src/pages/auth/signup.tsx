@@ -1,9 +1,12 @@
+import { addToast } from "@heroui/toast";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 import { AuthForm } from "./auth-form";
 
-import { useAuthStore } from "@/stores";
+import { api } from "@/lib/api";
+import { IUser } from "@/types/user";
 
 const signupSchema = z.object({
   name: z.string().nonempty("Por favor, insira um nome"),
@@ -22,19 +25,32 @@ const signupSchema = z.object({
 type SignUpForm = z.infer<typeof signupSchema>;
 
 export function PageSignUp() {
-  const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
 
-  const handleFormSubmit = (_: SignUpForm) => {
-    // console.log(data);
+  const signup = useMutation({
+    mutationKey: ["signup"],
+    mutationFn: async (payload: SignUpForm) => {
+      // add try catch here
+      const request = await api.post<Omit<IUser, "token">>(
+        "/register",
+        payload,
+      );
 
-    // await
-    login({
-      id: "1",
-      ..._,
+      return request.data;
+    },
+  });
+
+  const handleFormSubmit = async (data: SignUpForm) => {
+    signup.mutate(data, {
+      onSuccess: () => {
+        navigate("/signin", { replace: true });
+      },
+      onError: () => {
+        addToast({
+          title: "Error!",
+        });
+      },
     });
-
-    navigate("/", { replace: true });
   };
 
   return (
